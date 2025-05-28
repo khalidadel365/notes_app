@@ -39,7 +39,7 @@ class NoteItem extends StatelessWidget {
                   icon: Icon(
                     FontAwesomeIcons.trash,
                     color: Colors.black,
-                    size: 24,
+                    size: 25,
                   )
               ),
             ),
