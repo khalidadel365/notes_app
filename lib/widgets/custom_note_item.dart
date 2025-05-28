@@ -21,7 +21,7 @@ class NoteItem extends StatelessWidget {
               'Flutter Tips',style: TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.w500,
-                fontSize: 26
+                fontSize: 25.5,
             ),
             ),
             subtitle: Padding(
@@ -29,7 +29,7 @@ class NoteItem extends StatelessWidget {
               child: Text(
                 'Build your career with tharwat',style: TextStyle(
                   color: Colors.black.withOpacity(0.5),
-                  fontSize: 18
+                  fontSize: 17
               ),),
             ),
             trailing: Padding(
