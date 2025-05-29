@@ -19,6 +19,11 @@ class NotesApp extends StatelessWidget {
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.grey.shade900,
         fontFamily: kFontFamily,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: Colors.grey[800], // Highlight color
+          cursorColor: kPrimaryColor,    // Cursor color
+          selectionHandleColor: kPrimaryColor, // Handle color
+        ),
       ),
 
     );
