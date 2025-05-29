@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,7 +16,10 @@ class NotesViewBody extends StatelessWidget {
       child:  Column(
           children: [
             SizedBox(height: 35,),
-            CustomAppBar(),
+            CustomAppBar(
+              title: 'Notes',
+              icon: CupertinoIcons.search,
+            ),
             NotesListView(),
       ]),
     );
