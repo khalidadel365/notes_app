@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:notes_app/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/constants.dart';
 import 'package:notes_app/models/note_model.dart';
 import 'package:notes_app/views/notes_view.dart';
@@ -17,20 +19,25 @@ class NotesApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const NotesView(),
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.grey.shade900,
-        fontFamily: kFontFamily,
-        textSelectionTheme: TextSelectionThemeData(
-          selectionColor: Colors.grey[800], // Highlight color
-          cursorColor: kPrimaryColor,    // Cursor color
-          selectionHandleColor: kPrimaryColor, // Handle color
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context)=>AddNoteCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const NotesView(),
+        theme: ThemeData(
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: Colors.grey.shade900,
+          fontFamily: kFontFamily,
+          textSelectionTheme: TextSelectionThemeData(
+            selectionColor: Colors.grey[800], // Highlight color
+            cursorColor: kPrimaryColor,    // Cursor color
+            selectionHandleColor: kPrimaryColor, // Handle color
+          ),
         ),
-      ),
 
+      ),
     );
   }
 }
