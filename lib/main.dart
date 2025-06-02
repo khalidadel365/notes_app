@@ -10,8 +10,9 @@ import 'package:notes_app/views/notes_view.dart';
 void main() async {
   await Hive.initFlutter();
   Bloc.observer =SimpleBlocObserver();
-  await Hive.openBox(kNotesBox);
   Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox<NoteModel>(kNotesBox);
+
   runApp(const NotesApp());
 }
 
@@ -21,25 +22,20 @@ class NotesApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context)=>AddNoteCubit()),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: const NotesView(),
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          scaffoldBackgroundColor: Colors.grey.shade900,
-          fontFamily: kFontFamily,
-          textSelectionTheme: TextSelectionThemeData(
-            selectionColor: Colors.grey[800], // Highlight color
-            cursorColor: kPrimaryColor,    // Cursor color
-            selectionHandleColor: kPrimaryColor, // Handle color
-          ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const NotesView(),
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.grey.shade900,
+        fontFamily: kFontFamily,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: Colors.grey[800], // Highlight color
+          cursorColor: kPrimaryColor,    // Cursor color
+          selectionHandleColor: kPrimaryColor, // Handle color
         ),
-
       ),
+
     );
   }
 }
