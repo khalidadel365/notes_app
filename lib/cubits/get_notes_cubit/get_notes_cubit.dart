@@ -8,17 +8,14 @@ import 'package:notes_app/models/note_model.dart';
 class GetNotesCubit extends Cubit<GetNotesStates>{
   GetNotesCubit() : super(GetNotesInitial());
   bool isLoading = false;
+  List<NoteModel>? notes;
   getNotes()async{
     isLoading = true;
     //because the mehod not future
     //emit(GetNotesLoading());
-    try{
+
       var notesBox = Hive.box<NoteModel>(kNotesBox);
+      notes = notesBox.values.toList();
       isLoading = false;
-      emit(GetNotesSuccess(notesBox.values.toList()));
-    }catch(e){
-      isLoading = false;
-      emit(GetNotesFailure(e.toString()));
     }
   }
-}
