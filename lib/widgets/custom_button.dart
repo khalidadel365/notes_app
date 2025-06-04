@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:notes_app/add_note_cubit/add_note_cubit.dart';
 import 'package:notes_app/constants.dart';
 
 class CustomButton extends StatelessWidget {
