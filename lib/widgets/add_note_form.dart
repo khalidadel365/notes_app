@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes_app/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app/add_note_cubit/add_note_states.dart';
+import 'package:notes_app/constants.dart';
 import 'package:notes_app/models/note_model.dart';
 
 import 'custom_button.dart';
@@ -16,9 +18,10 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
-  String? title,subTitle;
+  String? title, subTitle;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -30,15 +33,15 @@ class _AddNoteFormState extends State<AddNoteForm> {
             hintText: 'Title',
             maxLines: 1,
             maxLength: 50,
-            onSaved: (value){
+            onSaved: (value) {
               title = value;
             },
-            validate: (value){
-              if(value?.isEmpty ?? true) {
+            validate: (value) {
+              if (value?.isEmpty ?? true) {
                 // true lw elvalue b null
                 return 'Title is required';
               }
-              else{
+              else {
                 return null;
               }
             },
@@ -48,40 +51,46 @@ class _AddNoteFormState extends State<AddNoteForm> {
           ),
           CustomTextFormField(
             hintText: 'Content',
-            validate: (value){
-              if(value?.isEmpty ?? true) {
+            validate: (value) {
+              if (value?.isEmpty ?? true) {
                 // true lw elvalue b null
                 return 'Content is required';
               }
-              else{
+              else {
                 return null;
               }
             },
-            onSaved: (value){
+            onSaved: (value) {
               subTitle = value;
             },
             maxLines: 5,
             maxLength: 180,
           ),
           SizedBox(height: 50,),
-          CustomButton(
-              text: 'Add',
-              onPressed: (){
-                if(formKey.currentState!.validate()){
-                  formKey.currentState!.save();
-                  print('title: $title, subTitle: $subTitle');
-                  BlocProvider.of<AddNoteCubit>(context).addNote(
-                    NoteModel(
-                        title: title!,
-                        subTitle: subTitle!,
-                        date: DateTime.now().toString(),
-                        color: Colors.cyan.value)
-                  );
-                }
-                else{
-                  autovalidateMode = AutovalidateMode.always;
-                }
-              }),
+          BlocBuilder<AddNoteCubit, AddNotesStates>(
+            builder: (context, state) {
+              return CustomButton(
+                  text: 'Add',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      print('title: $title, subTitle: $subTitle');
+                      BlocProvider.of<AddNoteCubit>(context).addNote(
+                          NoteModel(
+                              title: title!,
+                              subTitle: subTitle!,
+                              date: DateTime.now().toString(),
+                              color: Colors.cyan.value)
+                      );
+                    }
+                    else {
+                      autovalidateMode = AutovalidateMode.always;
+                    }
+                  },
+                  isLoading: state is AddNoteLoading ? true : false,
+              );
+            },
+          ),
           SizedBox(height: 16,),
         ],
       ),
