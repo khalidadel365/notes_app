@@ -31,7 +31,9 @@ class _NotesListViewState extends State<NotesListView> {
               padding: EdgeInsets.zero,
               itemCount: notes.length,
               itemBuilder: (context, index) {
-                return NoteItem();
+                return NoteItem(
+                  noteModel: notes[index],
+                );
               }, separatorBuilder: (context, index) {
               return SizedBox(height: 10,);
             },),
